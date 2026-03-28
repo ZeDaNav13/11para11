@@ -1,0 +1,46 @@
+<h2 class="page-title">{{AUTHOR_NAME}}</h2>
+<div class="author-meta-row">
+  <p class="page-subtitle">{{AUTHOR_COUNT}} artigos</p>
+  <div class="author-filters" aria-label="Filtrar por categoria">
+    {{AUTHOR_FILTERS}}
+  </div>
+</div>
+<div class="grid two">
+  {{CARDS}}
+</div>
+<script>
+(() => {
+  const root = document.querySelector(".author-page");
+  if (!root) return;
+  const buttons = Array.from(root.querySelectorAll(".author-filter"));
+  const cards = Array.from(root.querySelectorAll(".grid.two .card"));
+  if (!buttons.length || !cards.length) return;
+  const selected = new Set();
+
+  const apply = () => {
+    cards.forEach((card) => {
+      const section = card.dataset.section || "";
+      const match = selected.size === 0 || selected.has(section);
+      card.style.display = match ? "" : "none";
+    });
+    buttons.forEach((btn) => {
+      const section = btn.dataset.section || "";
+      const isActive = selected.has(section);
+      btn.classList.toggle("active", isActive);
+      btn.setAttribute("aria-pressed", isActive ? "true" : "false");
+    });
+  };
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const section = btn.dataset.section || "";
+      if (!section) return;
+      if (selected.has(section)) selected.delete(section);
+      else selected.add(section);
+      apply();
+    });
+  });
+
+  apply();
+})();
+</script>

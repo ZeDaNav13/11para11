@@ -1,0 +1,41 @@
+<article class="article-wrap">
+  <header class="article-header">
+    <img src="{{ARTICLE_COVER}}" alt="{{ARTICLE_TITLE}}">
+    <h2 class="article-title">{{ARTICLE_TITLE}}</h2>
+    <p class="article-byline">
+      <span class="article-byline-main">
+        <a class="article-byline-author" href="{{AUTHOR_URL}}">{{AUTHOR_NAME}}</a>
+        <span class="card-dot">•</span>
+        <span class="article-byline-date">{{ARTICLE_DATE}}</span>
+      </span>
+      <span class="article-byline-category">
+        <span class="category-pill">{{ARTICLE_CATEGORY}}</span>
+      </span>
+    </p>
+  </header>
+  <section class="article-content">
+    {{ARTICLE_BODY}}
+  </section>
+  <aside class="author-card">
+    <div class="author-card-head">
+      <h3><a class="author-link" href="{{AUTHOR_URL}}">{{AUTHOR_NAME}}</a></h3>
+      <a class="author-jump" href="{{AUTHOR_URL}}" aria-label="Abrir página do autor">»»</a>
+    </div>
+    <div class="author-recent-row">
+      <div class="author-recent">
+        {{AUTHOR_RECENT}}
+      </div>
+    </div>
+  </aside>
+  <aside class="category-card">
+    <div class="author-card-head">
+      <h3><a class="author-link" href="{{CATEGORY_URL}}">{{ARTICLE_CATEGORY}}</a></h3>
+      <a class="author-jump" href="{{CATEGORY_URL}}" aria-label="Abrir página da categoria">»»</a>
+    </div>
+    <div class="author-recent-row">
+      <div class="author-recent">
+        {{CATEGORY_RECENT}}
+      </div>
+    </div>
+  </aside>
+</article>

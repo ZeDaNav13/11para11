@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>11PARA11 | Nova Casa</title>
+  <meta name="description" content="Nova shell mobile-first para o 11PARA11.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-bg" aria-hidden="true"></div>
+  <header class="topbar">
+    <p class="kicker">desde 2011</p>
+    <h1>11PARA11</h1>
+    <p class="subtitle">Futebol escrito com tempo, ritmo e opinião.</p>
+    <div class="backoffice-links">
+      <a class="backoffice-link" href="./backoffice-authors.html">Backoffice autores</a>
+      <a class="backoffice-link" href="./backoffice-articles.html">Backoffice artigos</a>
+    </div>
+    <label class="search">
+      <span>Pesquisar</span>
+      <input id="searchInput" type="search" placeholder="tema, autor, clube...">
+    </label>
+  </header>
+
+  <main class="content">
+    <section class="section-row">
+      <h2>Secções</h2>
+      <div id="sectionPills" class="pills"></div>
+    </section>
+
+    <section class="feed">
+      <div class="feed-header">
+        <h2>Últimos artigos</h2>
+        <span id="resultCount"></span>
+      </div>
+      <div id="cards" class="cards"></div>
+    </section>
+  </main>
+
+  <nav class="tabbar" aria-label="Navegação">
+    <a class="active" href="./index.html">Início</a>
+    <a href="../a-seleccao/index.html">A Selecção</a>
+    <a href="../o-fantasista/index.html">O Fantasista</a>
+    <a href="../area-tecnica/index.html">Área Técnica</a>
+  </nav>
+
+  <script src="./app.js"></script>
+</body>
+</html>

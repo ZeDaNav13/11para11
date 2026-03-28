@@ -1,0 +1,164 @@
+[
+  {
+    "slug": "pedro-maia",
+    "name": "Pedro Maia",
+    "url": "/autores/pedro-maia/",
+    "article_count": 113,
+    "section_count": 2,
+    "section_slugs": [
+      "o-fantasista",
+      "zandingas"
+    ]
+  },
+  {
+    "slug": "renato-goncalves",
+    "name": "Renato Gonçalves",
+    "url": "/autores/renato-goncalves/",
+    "article_count": 57,
+    "section_count": 2,
+    "section_slugs": [
+      "a-seleccao",
+      "o-tubarao"
+    ]
+  },
+  {
+    "slug": "jose-miranda",
+    "name": "José Miranda",
+    "url": "/autores/jose-miranda/",
+    "article_count": 41,
+    "section_count": 1,
+    "section_slugs": [
+      "a-seleccao"
+    ]
+  },
+  {
+    "slug": "paulo-pereira",
+    "name": "Paulo Pereira",
+    "url": "/autores/paulo-pereira/",
+    "article_count": 38,
+    "section_count": 1,
+    "section_slugs": [
+      "no-caldeirao-domingo-as-4"
+    ]
+  },
+  {
+    "slug": "tiago-quartilho",
+    "name": "Tiago Quartilho",
+    "url": "/autores/tiago-quartilho/",
+    "article_count": 27,
+    "section_count": 1,
+    "section_slugs": [
+      "papoilas-saltitantes"
+    ]
+  },
+  {
+    "slug": "alberto-carvalho",
+    "name": "Alberto Carvalho",
+    "url": "/autores/alberto-carvalho/",
+    "article_count": 24,
+    "section_count": 1,
+    "section_slugs": [
+      "area-tecnica"
+    ]
+  },
+  {
+    "slug": "bernardo-sousa",
+    "name": "Bernardo Sousa",
+    "url": "/autores/bernardo-sousa/",
+    "article_count": 19,
+    "section_count": 1,
+    "section_slugs": [
+      "o-cantinho-da-magica"
+    ]
+  },
+  {
+    "slug": "luis-pires",
+    "name": "Luís Pires",
+    "url": "/autores/luis-pires/",
+    "article_count": 18,
+    "section_count": 1,
+    "section_slugs": [
+      "curva-belissima"
+    ]
+  },
+  {
+    "slug": "oscar-botelho",
+    "name": "Óscar Botelho",
+    "url": "/autores/oscar-botelho/",
+    "article_count": 14,
+    "section_count": 1,
+    "section_slugs": [
+      "a-seleccao"
+    ]
+  },
+  {
+    "slug": "a-redaccao",
+    "name": "A Redacção",
+    "url": "/autores/a-redaccao/",
+    "article_count": 14,
+    "section_count": 1,
+    "section_slugs": [
+      "a-seleccao"
+    ]
+  },
+  {
+    "slug": "ricardo-rodrigues-rocha",
+    "name": "Ricardo Rodrigues Rocha",
+    "url": "/autores/ricardo-rodrigues-rocha/",
+    "article_count": 11,
+    "section_count": 1,
+    "section_slugs": [
+      "papoilas-saltitantes"
+    ]
+  },
+  {
+    "slug": "tome-moreira",
+    "name": "Tomé Moreira",
+    "url": "/autores/tome-moreira/",
+    "article_count": 9,
+    "section_count": 1,
+    "section_slugs": [
+      "confianca-azul"
+    ]
+  },
+  {
+    "slug": "ponto-g-23",
+    "name": "Ponto G - 23",
+    "url": "/autores/ponto-g-23/",
+    "article_count": 6,
+    "section_count": 1,
+    "section_slugs": [
+      "papoilas-saltitantes"
+    ]
+  },
+  {
+    "slug": "jorge-gomes-salvado",
+    "name": "Jorge Gomes Salvado",
+    "url": "/autores/jorge-gomes-salvado/",
+    "article_count": 5,
+    "section_count": 1,
+    "section_slugs": [
+      "curva-belissima"
+    ]
+  },
+  {
+    "slug": "tiago-dias",
+    "name": "Tiago Dias",
+    "url": "/autores/tiago-dias/",
+    "article_count": 2,
+    "section_count": 1,
+    "section_slugs": [
+      "papoilas-saltitantes"
+    ]
+  },
+  {
+    "slug": "nuno-ribeiro-oliveira",
+    "name": "Nuno Ribeiro Oliveira",
+    "url": "/autores/nuno-ribeiro-oliveira/",
+    "article_count": 1,
+    "section_count": 1,
+    "section_slugs": [
+      "a-seleccao"
+    ]
+  }
+]

@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{PAGE_TITLE}}</title>
+  <meta name="description" content="{{PAGE_DESCRIPTION}}">
+  <link rel="icon" href="{{BASE_PATH}}/favicon.svg?v=20260328" type="image/svg+xml">
+  <link rel="shortcut icon" href="{{BASE_PATH}}/favicon.ico?v=20260328" type="image/x-icon">
+  <link rel="preload" href="{{BASE_PATH}}/fonts/oswald-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{BASE_PATH}}/fonts/barlow-400-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{BASE_PATH}}/theme/main.css">
+</head>
+<body class="{{PAGE_CLASS}}">
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="social social-header" aria-label="Redes sociais">
+        <a class="social-link" href="https://facebook.com/11para11.pt" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 8H15V5h-1.5C10.9 5 10 6.6 10 8.4V10H8v3h2v6h3v-6h2.1l.4-3H13v-1.2c0-.5.3-.8.9-.8z"/></svg>
+        </a>
+        <a class="social-link" href="https://x.com/11para11" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h3.3l3.5 4.8L17 5h3l-5.8 6.4L20.5 19h-3.3l-3.9-5.3L8.6 19h-3l6-6.7z"/></svg>
+        </a>
+        <a class="social-link" href="{{BASE_PATH}}/feed.xml" aria-label="RSS feed">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-2-7v3a9 9 0 0 1 9 9h3c0-6.6-5.4-12-12-12zm0-5v3c7.7 0 14 6.3 14 14h3C21 11.5 13.5 4 4 4z"/></svg>
+        </a>
+      </div>
+      <h1 class="brand"><a href="{{BASE_PATH}}/" style="color:inherit">11para11</a></h1>
+      <nav class="nav">
+        {{NAV_LINKS}}
+      </nav>
+    </div>
+  </header>
+  <main class="site-wrap">
+    {{PAGE_CONTENT}}
+  </main>
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-left">
+        <nav class="site-footer-nav" aria-label="Footer">
+          <a href="{{BASE_PATH}}/sobre/">sobre</a>
+          <a href="{{BASE_PATH}}/arquivo/">arquivo</a>
+        </nav>
+        <div class="social social-footer" aria-label="Redes sociais">
+          <a class="social-link" href="https://facebook.com/11para11.pt" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 8H15V5h-1.5C10.9 5 10 6.6 10 8.4V10H8v3h2v6h3v-6h2.1l.4-3H13v-1.2c0-.5.3-.8.9-.8z"/></svg>
+          </a>
+          <a class="social-link" href="https://x.com/11para11" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h3.3l3.5 4.8L17 5h3l-5.8 6.4L20.5 19h-3.3l-3.9-5.3L8.6 19h-3l6-6.7z"/></svg>
+          </a>
+          <a class="social-link" href="{{BASE_PATH}}/feed.xml" aria-label="RSS feed">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 16a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-2-7v3a9 9 0 0 1 9 9h3c0-6.6-5.4-12-12-12zm0-5v3c7.7 0 14 6.3 14 14h3C21 11.5 13.5 4 4 4z"/></svg>
+          </a>
+        </div>
+      </div>
+      <span class="site-footer-brand">11para11</span>
+    </div>
+    <div class="site-footer-credit">
+      Designed &amp; developed by
+      <a href="https://paperpushers.biz" target="_blank" rel="noopener noreferrer"><strong>PaperPushers</strong></a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>11PARA11 | Backoffice Artigos</title>
+  <meta name="description" content="Gestao de artigos do 11PARA11.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-bg" aria-hidden="true"></div>
+  <header class="topbar">
+    <p class="kicker">backoffice</p>
+    <h1>Artigos</h1>
+    <p class="subtitle">Criar, editar e preparar publicacoes.</p>
+    <div class="backoffice-actions">
+      <a class="ghost-link" href="./index.html">Voltar ao feed</a>
+      <a class="ghost-link" href="./backoffice-authors.html">Backoffice autores</a>
+      <button id="publishBtn" class="ghost-link ghost-link-btn" type="button">Publicar drafts/</button>
+      <button id="exportBtn" class="ghost-link ghost-link-btn" type="button">Exportar JSON</button>
+    </div>
+  </header>
+
+  <main class="content admin-wrap">
+    <section class="admin-panel">
+      <h2>Novo artigo</h2>
+      <form id="articleForm" class="admin-form">
+        <input id="articleId" type="hidden">
+        <label>
+          <span>Titulo</span>
+          <input id="titleInput" type="text" required placeholder="Ex: FPL Gameweek 18">
+        </label>
+        <div class="admin-grid-2">
+          <label>
+            <span>Data</span>
+            <input id="dateInput" type="date" required>
+          </label>
+          <label>
+            <span>Secao</span>
+            <input id="sectionInput" type="text" required placeholder="Ex: o-fantasista">
+          </label>
+        </div>
+        <div class="admin-grid-2">
+          <label>
+            <span>Autor</span>
+            <select id="authorSelect" required></select>
+          </label>
+          <label>
+            <span>Slug</span>
+            <input id="slugInput" type="text" required placeholder="Ex: fpl-gameweek-18">
+          </label>
+        </div>
+        <label>
+          <span>Estado</span>
+          <select id="statusSelect">
+            <option value="draft">draft</option>
+            <option value="review">review</option>
+            <option value="published">published</option>
+          </select>
+        </label>
+        <label>
+          <span>Descricao</span>
+          <textarea id="descriptionInput" rows="3" placeholder="Resumo curto para feed"></textarea>
+        </label>
+        <label>
+          <span>Cover URL</span>
+          <input id="coverInput" type="url" placeholder="/assets/you.png">
+        </label>
+        <label>
+          <span>Corpo (HTML)</span>
+          <textarea id="bodyInput" rows="8" placeholder="<p>Conteudo do artigo...</p>"></textarea>
+        </label>
+        <p id="urlPreview" class="admin-note"></p>
+        <div class="admin-row">
+          <button id="validateBtn" class="pill" type="button">Validar artigo</button>
+        </div>
+        <p id="validationSummary" class="admin-note"></p>
+        <ul id="validationList" class="validation-list"></ul>
+        <div class="admin-row">
+          <button id="saveBtn" class="pill active" type="submit">Guardar artigo</button>
+          <button id="resetBtn" class="pill" type="button">Limpar</button>
+        </div>
+      </form>
+      <p id="formMessage" class="admin-note"></p>
+    </section>
+
+    <section class="admin-panel">
+      <div class="feed-header">
+        <h2>Lista de artigos</h2>
+        <span id="articleCount"></span>
+      </div>
+      <div class="admin-grid-2">
+        <label class="search">
+          <span>Filtrar</span>
+          <input id="filterInput" type="search" placeholder="titulo, secao, autor, data, estado">
+        </label>
+        <label class="search">
+          <span>Estado</span>
+          <select id="statusFilter">
+            <option value="">todos</option>
+            <option value="draft">draft</option>
+            <option value="review">review</option>
+            <option value="published">published</option>
+          </select>
+        </label>
+      </div>
+      <div id="articleList" class="article-admin-list"></div>
+    </section>
+  </main>
+
+  <script src="./backoffice-publish.js"></script>
+  <script src="./backoffice-articles.js"></script>
+</body>
+</html>

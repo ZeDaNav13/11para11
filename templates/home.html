@@ -1,0 +1,207 @@
+<section class="home-carousel" aria-label="Artigos em destaque">
+  <div class="carousel-track">
+    {{CAROUSEL_SLIDES}}
+  </div>
+</section>
+<div class="carousel-dots" role="tablist" aria-label="Selecionar destaque">
+  {{CAROUSEL_DOTS}}
+</div>
+
+<div class="home-feed home-grid-two">
+  {{CARDS_TWO}}
+</div>
+<section class="category-spotlight" aria-label="Categorias em destaque">
+  <div class="category-spotlight-head">
+    <div class="category-spotlight-head-left">
+      <button class="cat-nav cat-prev" type="button" aria-label="Categoria anterior">&lt;&lt;</button>
+      <h2 class="category-spotlight-title">category</h2>
+      <button class="cat-nav cat-next" type="button" aria-label="Categoria seguinte">&gt;&gt;</button>
+    </div>
+    <a class="cat-jump" href="{{BASE_PATH}}/" aria-label="Abrir categoria">&gt;&gt;&gt;&gt;</a>
+  </div>
+  <div class="category-spotlight-grid"></div>
+  <script id="category-spotlight-data" type="application/json">{{CATEGORY_SPOTLIGHT_JSON}}</script>
+</section>
+<div class="home-grid-three">
+  {{CARDS_THREE}}
+</div>
+<div class="home-more">
+  {{CARDS_MORE}}
+</div>
+<div class="load-more-wrap">
+  <button class="load-more-btn" type="button">ver mais</button>
+</div>
+<script>
+(() => {
+  const root = document.querySelector(".home-carousel");
+  const dotsRoot = document.querySelector(".carousel-dots");
+  if (!root) return;
+  if (!dotsRoot) return;
+  const slides = Array.from(root.querySelectorAll(".carousel-slide"));
+  const dots = Array.from(dotsRoot.querySelectorAll(".carousel-dot"));
+  if (slides.length <= 1) return;
+
+  const DURATION_MS = 5000;
+  let current = 0;
+  let raf = null;
+  let progressMs = 0;
+  let lastTs = 0;
+
+  const renderProgress = () => {
+    const pct = Math.max(0, Math.min(100, (progressMs / DURATION_MS) * 100));
+    dots.forEach((dot, i) => {
+      dot.style.setProperty("--progress", i === current ? `${pct}%` : "0%");
+    });
+  };
+
+  const show = (index, resetProgress = true) => {
+    current = (index + slides.length) % slides.length;
+    slides.forEach((slide, i) => {
+      slide.classList.toggle("active", i === current);
+    });
+    dots.forEach((dot, i) => {
+      const active = i === current;
+      dot.classList.toggle("active", active);
+      dot.setAttribute("aria-selected", active ? "true" : "false");
+    });
+    if (resetProgress) {
+      progressMs = 0;
+    }
+    renderProgress();
+  };
+
+  const stop = () => {
+    if (!raf) return;
+    cancelAnimationFrame(raf);
+    raf = null;
+    lastTs = 0;
+  };
+
+  const tick = (ts) => {
+    if (lastTs) {
+      progressMs += ts - lastTs;
+    }
+    lastTs = ts;
+
+    if (progressMs >= DURATION_MS) {
+      show(current + 1, true);
+      progressMs = 0;
+    }
+
+    renderProgress();
+    raf = requestAnimationFrame(tick);
+  };
+
+  const start = () => {
+    stop();
+    raf = requestAnimationFrame(tick);
+  };
+
+  dots.forEach((dot) => {
+    dot.addEventListener("click", () => {
+      show(Number(dot.dataset.index || "0"), true);
+      start();
+    });
+  });
+
+  root.addEventListener("mouseenter", stop);
+  root.addEventListener("mouseleave", start);
+  root.addEventListener("focusin", stop);
+  root.addEventListener("focusout", start);
+
+  show(0);
+  start();
+})();
+
+(() => {
+  const BASE_PATH = "{{BASE_PATH}}";
+  const withBase = (value) => {
+    const raw = String(value || "");
+    if (!BASE_PATH || !raw.startsWith("/")) return raw;
+    return `${BASE_PATH}${raw}`;
+  };
+
+  const root = document.querySelector(".category-spotlight");
+  const dataEl = document.getElementById("category-spotlight-data");
+  if (!root || !dataEl) return;
+  const titleEl = root.querySelector(".category-spotlight-title");
+  const gridEl = root.querySelector(".category-spotlight-grid");
+  const prevBtn = root.querySelector(".cat-prev");
+  const nextBtn = root.querySelector(".cat-next");
+  const jumpEl = root.querySelector(".cat-jump");
+  if (!titleEl || !gridEl || !prevBtn || !nextBtn || !jumpEl) return;
+
+  let categories = [];
+  try {
+    categories = JSON.parse(dataEl.textContent || "[]");
+  } catch {
+    categories = [];
+  }
+  if (!Array.isArray(categories) || categories.length === 0) {
+    root.style.display = "none";
+    return;
+  }
+
+  let idx = 0;
+  const render = () => {
+    const item = categories[idx];
+    titleEl.textContent = item?.name || "category";
+    jumpEl.href = withBase(item?.url || "/");
+    gridEl.innerHTML = "";
+    (item?.articles || []).slice(0, 3).forEach((article) => {
+      const a = document.createElement("a");
+      a.className = "category-spotlight-item";
+      a.href = withBase(article.url || "/");
+      a.setAttribute("aria-label", article.title || "Artigo");
+
+      const img = document.createElement("img");
+      img.className = "category-spotlight-cover";
+      img.src = withBase(article.cover || "/assets/you.png");
+      img.alt = article.title || "Artigo";
+
+      const t = document.createElement("span");
+      t.className = "category-spotlight-item-title";
+      t.textContent = article.title || "";
+
+      const metaParts = [article.author || "", article.date || ""].filter(Boolean);
+      const m = document.createElement("span");
+      m.className = "category-spotlight-item-meta";
+      m.textContent = metaParts.join(" • ");
+
+      a.appendChild(img);
+      a.appendChild(t);
+      a.appendChild(m);
+      gridEl.appendChild(a);
+    });
+  };
+
+  prevBtn.addEventListener("click", () => {
+    idx = (idx - 1 + categories.length) % categories.length;
+    render();
+  });
+  nextBtn.addEventListener("click", () => {
+    idx = (idx + 1) % categories.length;
+    render();
+  });
+
+  render();
+})();
+
+(() => {
+  const btn = document.querySelector(".load-more-btn");
+  if (!btn) return;
+  const hidden = () => Array.from(document.querySelectorAll(".home-more .extra-history.is-hidden"));
+  if (hidden().length === 0) {
+    btn.style.display = "none";
+    return;
+  }
+  btn.addEventListener("click", () => {
+    hidden()
+      .slice(0, 12)
+      .forEach((card) => card.classList.remove("is-hidden"));
+    if (hidden().length === 0) {
+      btn.style.display = "none";
+    }
+  });
+})();
+</script>

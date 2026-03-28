@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>11PARA11 | Backoffice Autores</title>
+  <meta name="description" content="Gestao de autores do 11PARA11.">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="app-bg" aria-hidden="true"></div>
+  <header class="topbar">
+    <p class="kicker">backoffice</p>
+    <h1>Autores</h1>
+    <p class="subtitle">Criar, editar e manter o catalogo editorial.</p>
+    <div class="backoffice-actions">
+      <a class="ghost-link" href="./index.html">Voltar ao feed</a>
+      <a class="ghost-link" href="./backoffice-articles.html">Backoffice artigos</a>
+      <button id="publishBtn" class="ghost-link ghost-link-btn" type="button">Publicar drafts/</button>
+      <button id="exportBtn" class="ghost-link ghost-link-btn" type="button">Exportar JSON</button>
+    </div>
+  </header>
+
+  <main class="content admin-wrap">
+    <section class="admin-panel">
+      <h2>Novo autor</h2>
+      <form id="authorForm" class="admin-form">
+        <input id="authorId" type="hidden">
+        <label>
+          <span>Nome</span>
+          <input id="nameInput" type="text" required placeholder="Ex: Jose Miranda">
+        </label>
+        <label>
+          <span>Slug</span>
+          <input id="slugInput" type="text" required placeholder="Ex: jose-miranda">
+        </label>
+        <label>
+          <span>Bio</span>
+          <textarea id="bioInput" rows="3" placeholder="Texto curto para a pagina do autor"></textarea>
+        </label>
+        <label>
+          <span>Avatar URL</span>
+          <input id="avatarInput" type="url" placeholder="/assets/you.png">
+        </label>
+        <label>
+          <span>Secoes (separadas por virgula)</span>
+          <input id="sectionsInput" type="text" placeholder="a-seleccao, o-fantasista">
+        </label>
+        <div class="admin-row">
+          <button id="saveBtn" class="pill active" type="submit">Guardar autor</button>
+          <button id="resetBtn" class="pill" type="button">Limpar</button>
+        </div>
+      </form>
+      <p id="formMessage" class="admin-note"></p>
+    </section>
+
+    <section class="admin-panel">
+      <div class="feed-header">
+        <h2>Lista de autores</h2>
+        <span id="authorCount"></span>
+      </div>
+      <label class="search">
+        <span>Filtrar</span>
+        <input id="filterInput" type="search" placeholder="nome, slug, secao">
+      </label>
+      <div id="authorList" class="author-admin-list"></div>
+    </section>
+  </main>
+
+  <script src="./backoffice-publish.js"></script>
+  <script src="./backoffice-authors.js"></script>
+</body>
+</html>

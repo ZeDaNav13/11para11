@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "a-seleccao",
+    "name": "A Seleccao",
+    "article_count": 71,
+    "latest_date": "2015-05-11"
+  },
+  {
+    "slug": "area-tecnica",
+    "name": "Area Tecnica",
+    "article_count": 24,
+    "latest_date": "2013-10-18"
+  },
+  {
+    "slug": "confianca-azul",
+    "name": "Confianca Azul",
+    "article_count": 9,
+    "latest_date": "2014-04-22"
+  },
+  {
+    "slug": "curva-belissima",
+    "name": "Curva Belissima",
+    "article_count": 23,
+    "latest_date": "2014-10-21"
+  },
+  {
+    "slug": "no-caldeirao-domingo-as-4",
+    "name": "No Caldeirao Domingo As 4",
+    "article_count": 38,
+    "latest_date": "2015-01-05"
+  },
+  {
+    "slug": "o-cantinho-da-magica",
+    "name": "O Cantinho Da Magica",
+    "article_count": 19,
+    "latest_date": "2014-09-18"
+  },
+  {
+    "slug": "o-fantasista",
+    "name": "O Fantasista",
+    "article_count": 112,
+    "latest_date": "2015-12-18"
+  },
+  {
+    "slug": "o-tubarao",
+    "name": "O Tubarao",
+    "article_count": 56,
+    "latest_date": "2014-07-07"
+  },
+  {
+    "slug": "papoilas-saltitantes",
+    "name": "Papoilas Saltitantes",
+    "article_count": 46,
+    "latest_date": "2015-06-11"
+  },
+  {
+    "slug": "zandingas",
+    "name": "Zandingas",
+    "article_count": 1,
+    "latest_date": "2013-04-06"
+  }
+]
