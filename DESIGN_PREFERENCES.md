@@ -8,6 +8,10 @@ This document defines the visual direction for the rebuilt product.
 - Tone: premium, focused, football-first, high-contrast readability.
 - Mobile is the primary target.
 - Experience should feel app-like (native feel) on phone and tablet.
+- Responsive breakpoint rule:
+  - mobile behavior/styles: `< 720px`
+  - desktop behavior/styles: `>= 720px`
+  - all mobile adjustments must preserve existing desktop layout/visuals.
 
 ## Color System (Required)
 

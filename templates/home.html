@@ -118,6 +118,7 @@
   const withBase = (value) => {
     const raw = String(value || "");
     if (!BASE_PATH || !raw.startsWith("/")) return raw;
+    if (raw === BASE_PATH || raw.startsWith(`${BASE_PATH}/`)) return raw;
     return `${BASE_PATH}${raw}`;
   };
 
@@ -157,6 +158,12 @@
       const img = document.createElement("img");
       img.className = "category-spotlight-cover";
       img.src = withBase(article.cover || "/assets/you.png");
+      img.loading = "lazy";
+      img.decoding = "async";
+      img.onerror = () => {
+        img.onerror = null;
+        img.src = withBase("/assets/you.png");
+      };
       img.alt = article.title || "Artigo";
 
       const t = document.createElement("span");

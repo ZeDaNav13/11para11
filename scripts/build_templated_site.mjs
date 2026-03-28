@@ -261,7 +261,7 @@ function renderCard(entry) {
   return `
 <article class="card">
   <a class="card-hit" href="${withBasePath(entry.url)}">
-    <img class="card-cover" src="${escapeHtml(withBasePath(entry.cover))}" alt="${escapeHtml(entry.title)}">
+    <img class="card-cover" src="${escapeHtml(withBasePath(entry.cover))}" alt="${escapeHtml(entry.title)}" loading="lazy" decoding="async">
     <div class="card-body">
       <p class="card-category">
         <span class="category-pill">${escapeHtml(section)}</span>
@@ -289,7 +289,7 @@ function renderHistoryRow(entry) {
   return `
 <article class="history-row">
   <a class="history-hit" href="${withBasePath(entry.url)}">
-    <img class="history-cover" src="${escapeHtml(withBasePath(entry.cover || "/assets/you.png"))}" alt="${escapeHtml(entry.title)}">
+    <img class="history-cover" src="${escapeHtml(withBasePath(entry.cover || "/assets/you.png"))}" alt="${escapeHtml(entry.title)}" loading="lazy" decoding="async">
     <div class="history-body">
       <p class="card-category">
         <span class="category-pill">${escapeHtml(section)}</span>
@@ -312,7 +312,7 @@ function renderCarouselSlide(entry, index) {
   const shortDate = formatCardDate(entry.date || "");
   return `<article class="carousel-slide${activeClass}" data-index="${index}">
   <a class="carousel-hit" href="${withBasePath(entry.url)}">
-    <img class="carousel-cover" src="${escapeHtml(withBasePath(entry.cover || "/assets/you.png"))}" alt="${escapeHtml(entry.title)}">
+    <img class="carousel-cover" src="${escapeHtml(withBasePath(entry.cover || "/assets/you.png"))}" alt="${escapeHtml(entry.title)}" loading="${index === 0 ? "eager" : "lazy"}" decoding="async" fetchpriority="${index === 0 ? "high" : "low"}">
     <div class="carousel-body">
       <p class="card-category">
         <span class="category-pill">${escapeHtml(section)}</span>
@@ -559,7 +559,7 @@ for (const entry of entries) {
     .slice(0, 4)
     .map(
       (a) => `<a class="author-recent-tile" href="${withBasePath(a.url)}" title="${escapeHtml(a.title)}" aria-label="${escapeHtml(a.title)}">
-  <img class="author-recent-cover" src="${escapeHtml(withBasePath(a.cover || "/assets/you.png"))}" alt="${escapeHtml(a.title)}">
+  <img class="author-recent-cover" src="${escapeHtml(withBasePath(a.cover || "/assets/you.png"))}" alt="${escapeHtml(a.title)}" loading="lazy" decoding="async">
   <span class="author-recent-body">
     <span class="author-recent-pill">${escapeHtml(displaySectionName(a.section_slug || "", a.section_name || ""))}</span>
     <span class="author-recent-title">${escapeHtml(a.title)}</span>
@@ -578,7 +578,7 @@ for (const entry of entries) {
       const itemAuthor =
         authorBySlug[a.author_slug || ""]?.name || a.author_name || "11para11";
       return `<a class="author-recent-tile category-recent-tile" href="${withBasePath(a.url)}" title="${escapeHtml(a.title)}" aria-label="${escapeHtml(a.title)}">
-  <img class="author-recent-cover" src="${escapeHtml(withBasePath(a.cover || "/assets/you.png"))}" alt="${escapeHtml(a.title)}">
+  <img class="author-recent-cover" src="${escapeHtml(withBasePath(a.cover || "/assets/you.png"))}" alt="${escapeHtml(a.title)}" loading="lazy" decoding="async">
   <span class="author-recent-body">
     <span class="author-recent-title">${escapeHtml(a.title)}</span>
     <span class="author-recent-meta">${escapeHtml(itemAuthor)} <span class="card-dot">•</span> ${escapeHtml(formatCardDate(a.date || ""))}</span>

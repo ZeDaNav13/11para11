@@ -1,5 +1,35 @@
 # Changelog
 
+## 2026-03-28
+
+### Added
+- GitHub Pages project-path deployment support for:
+  - `https://zedanav13.github.io/11para11/`
+- Self-hosted fonts in `static/fonts` (`Barlow`, `Oswald`), with local `@font-face`.
+- Updated favicon assets to enforce white `11` on green background:
+  - `static/favicon.svg`
+  - `static/favicon.ico`
+
+### Changed
+- Pages workflow now builds with:
+  - `SITE_BASE_PATH=/11para11`
+  - `SITE_URL=https://zedanav13.github.io/11para11`
+- Template/build path handling updated so links/assets resolve under `/11para11/`.
+- `scripts/build_live.sh` now clears output folder before each build to avoid stale artifacts.
+- `scripts/build_live.sh` and `scripts/build_templated_site.mjs` no longer publish `app/` into live output.
+- `scripts/check_site_quality.sh` updated for base-path-aware checks and safer report generation.
+
+### Optimized
+- Lossless PNG recompression pass over archive media:
+  - files processed: `1056`
+  - files reduced: `30`
+  - bytes saved: `451436`
+
+### Verified
+- `./scripts/build_live.sh` succeeds with Pages env settings and generates deploy-ready output.
+- GitHub remote configured and `main` pushed to:
+  - `https://github.com/ZeDaNav13/11para11`
+
 ## 2026-03-05
 
 ### Added

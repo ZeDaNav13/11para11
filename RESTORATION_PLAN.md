@@ -1,6 +1,6 @@
-# 11para11 Restoration Plan (Updated 2026-03-05)
+# 11para11 Restoration Plan (Updated 2026-03-28)
 
-This repository now supports a self-contained live mode independent from `recovery/`.
+This repository now ships as a static archive site, independent from `recovery/`.
 
 ## Goals set by AGENT.MD
 
@@ -42,6 +42,12 @@ This repository now supports a self-contained live mode independent from `recove
   - serve via `./scripts/serve_live.sh`
   - documentation in `docs/LIVE_MODE.md`
   - static runtime payload in `static/`
+- GitHub Pages deployment ready:
+  - `https://zedanav13.github.io/11para11/`
+  - project-path base handling is built in (`SITE_BASE_PATH=/11para11`)
+- Archive mode decision:
+  - content is frozen (no future editorial/backoffice content updates planned)
+  - goal is long-term availability/preservation of legacy content
 
 ## Default build command
 
@@ -64,12 +70,11 @@ If no trailing date is detected, keep fallback:
 
 - new: `/section/title.html`
 
-## Next tasks
+## Next tasks (maintenance only)
 
-1. Add article preview page (`/app/preview-article.html`) rendering draft HTML with real theme.
-2. Add import tools to load `drafts/*.json` back into `localStorage` for editing.
-3. Add command option in `./scripts/build.sh` to forward strict publish mode.
-4. User cleanup step (manual): remove remaining heavy legacy folders (`site-clean*`, `site-templated`, `recovery`) if no longer needed.
+1. Keep GitHub Pages workflow green after dependency/platform updates.
+2. Optionally run future media optimizations if repository size must be reduced further.
+3. Keep `content/` as canonical archival data source (no feature expansion planned).
 
 ## Completed in latest session (2026-03-04)
 
