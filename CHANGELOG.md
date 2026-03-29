@@ -40,7 +40,9 @@
 - GitHub Pages workflow runtime hardening for GitHub Actions Node 24 migration:
   - upgraded `actions/checkout` from `v4` to `v6`
   - upgraded `actions/setup-node` from `v4` to `v6`
-  - set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` on both `build` and `deploy` jobs to remove Node 20 runtime deprecation warnings
+  - upgraded `actions/deploy-pages` from `v4` to `v5` (Node 24 runtime)
+  - replaced `actions/upload-pages-artifact@v3` with explicit artifact packaging + `actions/upload-artifact@v7` (Node 24 runtime)
+  - set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` on both `build` and `deploy` jobs for early Node 24 validation
 
 ### Verified
 - `./scripts/build_live.sh static /tmp/11para11-live content app` succeeds.
