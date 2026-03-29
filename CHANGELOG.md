@@ -37,6 +37,10 @@
     - bottom: author + date
 - Build data update:
   - category spotlight source pool expanded (from 3 to 8) to support responsive card counts
+- GitHub Pages workflow runtime hardening for GitHub Actions Node 24 migration:
+  - upgraded `actions/checkout` from `v4` to `v6`
+  - upgraded `actions/setup-node` from `v4` to `v6`
+  - set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` on both `build` and `deploy` jobs to remove Node 20 runtime deprecation warnings
 
 ### Verified
 - `./scripts/build_live.sh static /tmp/11para11-live content app` succeeds.
