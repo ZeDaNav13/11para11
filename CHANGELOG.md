@@ -43,6 +43,12 @@
   - upgraded `actions/deploy-pages` from `v4` to `v5` (Node 24 runtime)
   - replaced `actions/upload-pages-artifact@v3` with explicit artifact packaging + `actions/upload-artifact@v7` (Node 24 runtime)
   - set `FORCE_JAVASCRIPT_ACTIONS_TO_NODE24=true` on both `build` and `deploy` jobs for early Node 24 validation
+- Article body sanitization hardening in the static site generator:
+  - removes high-risk tags (`script`, `style`, `object`, `embed`, `form`, `meta`, etc.)
+  - strips inline event handlers and inline style attributes from article HTML
+  - sanitizes `href` / `src` protocols and blocks unsafe schemes (e.g. `javascript:`)
+  - auto-upgrades external `http://` links and media sources to `https://` where possible
+  - enforces `noopener noreferrer` on links opened with `target="_blank"`
 
 ### Verified
 - `./scripts/build_live.sh static /tmp/11para11-live content app` succeeds.

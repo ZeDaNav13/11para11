@@ -98,24 +98,82 @@ function sanitizeAnchorTag(tag) {
   const href = tag.match(/\shref\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/i);
   if (href) {
     const raw = href[2] || href[3] || href[4] || "";
-    attrs.push(`href="${escapeHtml(raw)}"`);
+    const safe = sanitizeUrl(raw);
+    if (safe) attrs.push(`href="${escapeHtml(safe)}"`);
   }
   const target = tag.match(/\starget\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/i);
+  let hasTargetBlank = false;
   if (target) {
     const raw = target[2] || target[3] || target[4] || "";
-    attrs.push(`target="${escapeHtml(raw)}"`);
+    const normalized = String(raw || "").trim();
+    if (normalized) {
+      attrs.push(`target="${escapeHtml(normalized)}"`);
+      hasTargetBlank = normalized.toLowerCase() === "_blank";
+    }
   }
   const rel = tag.match(/\srel\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/i);
+  let relRaw = "";
   if (rel) {
-    const raw = rel[2] || rel[3] || rel[4] || "";
-    attrs.push(`rel="${escapeHtml(raw)}"`);
+    relRaw = rel[2] || rel[3] || rel[4] || "";
   }
   const title = tag.match(/\stitle\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/i);
   if (title) {
     const raw = title[2] || title[3] || title[4] || "";
     attrs.push(`title="${escapeHtml(raw)}"`);
   }
+  if (hasTargetBlank) {
+    const relSet = new Set(
+      String(relRaw || "")
+        .split(/\s+/)
+        .map((v) => v.trim().toLowerCase())
+        .filter(Boolean),
+    );
+    relSet.add("noopener");
+    relSet.add("noreferrer");
+    attrs.push(`rel="${escapeHtml(Array.from(relSet).join(" "))}"`);
+  } else if (relRaw) {
+    attrs.push(`rel="${escapeHtml(relRaw)}"`);
+  }
   return attrs.length ? `<a ${attrs.join(" ")}>` : "<a>";
+}
+
+function sanitizeIframeTag(tag) {
+  const attrs = [];
+  const src = tag.match(/\ssrc\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/i);
+  if (src) {
+    const raw = src[2] || src[3] || src[4] || "";
+    const safe = sanitizeUrl(raw);
+    if (safe) attrs.push(`src="${escapeHtml(safe)}"`);
+  }
+
+  const width = tag.match(/\swidth\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/i);
+  if (width) {
+    const raw = (width[2] || width[3] || width[4] || "").trim();
+    if (/^\d{1,4}$/.test(raw)) attrs.push(`width="${raw}"`);
+  }
+  const height = tag.match(/\sheight\s*=\s*("([^"]*)"|'([^']*)'|([^\s>]+))/i);
+  if (height) {
+    const raw = (height[2] || height[3] || height[4] || "").trim();
+    if (/^\d{1,4}$/.test(raw)) attrs.push(`height="${raw}"`);
+  }
+  if (/\sallowfullscreen(\s|>|$)/i.test(tag)) attrs.push("allowfullscreen");
+
+  return `<iframe ${attrs.join(" ")}>`;
+}
+
+function sanitizeUrl(value) {
+  const raw = String(value || "").trim();
+  if (!raw) return "";
+  if (raw.startsWith("/") || raw.startsWith("./") || raw.startsWith("../") || raw.startsWith("#")) return raw;
+  if (raw.startsWith("//")) return `https:${raw}`;
+
+  const scheme = raw.match(/^([a-zA-Z][a-zA-Z0-9+.-]*):/);
+  if (!scheme) return raw;
+  const proto = scheme[1].toLowerCase();
+
+  if (proto === "http") return `https:${raw.slice(5)}`;
+  if (proto === "https" || proto === "mailto" || proto === "tel") return raw;
+  return "";
 }
 
 function normalizeArticleBodyHtml(html) {
@@ -123,9 +181,31 @@ function normalizeArticleBodyHtml(html) {
   if (!input) return "";
 
   let out = input;
+  // Drop dangerous elements entirely.
+  out = out.replace(/<!--[\s\S]*?-->/g, "");
+  out = out.replace(/<(script|style|object|embed|svg|math|form|input|button|textarea|select|option|meta|link|base)\b[\s\S]*?<\/\1>/gi, "");
+  out = out.replace(/<(script|style|object|embed|svg|math|form|input|button|textarea|select|option|meta|link|base)\b[^>]*\/?>/gi, "");
+
+  // Remove inline JS handlers and CSS expression surfaces.
+  out = out.replace(/\son[a-z0-9_-]+\s*=\s*("([^"]*)"|'([^']*)'|[^\s>]+)/gi, "");
+  out = out.replace(/\sstyle\s*=\s*("([^"]*)"|'([^']*)'|[^\s>]+)/gi, "");
+
+  // Keep iframes only with sanitized attributes.
+  out = out.replace(/<iframe\b[^>]*>/gi, (tag) => sanitizeIframeTag(tag));
+
   out = out.replace(/<font\b[^>]*>/gi, "").replace(/<\/font>/gi, "");
   out = out.replace(/<(p|div|span|li|ul|ol|strong|em|b|i|u|h1|h2|h3|h4|h5|h6|blockquote)\b[^>]*>/gi, "<$1>");
   out = out.replace(/<a\b[^>]*>/gi, (tag) => sanitizeAnchorTag(tag));
+  out = out.replace(
+    /\s(href|src)\s*=\s*("([^"]*)"|'([^']*)')/gi,
+    (match, attr, quoted, doubleVal, singleVal) => {
+      const val = typeof doubleVal === "string" ? doubleVal : singleVal;
+      const q = quoted[0];
+      const safe = sanitizeUrl(val);
+      if (!safe) return "";
+      return ` ${attr}=${q}${escapeHtml(safe)}${q}`;
+    },
+  );
   out = out.replace(/<br\b[^>]*>/gi, "<br/>");
   out = out
     .replace(/<p>\s*&nbsp;\s*<\/p>/gi, "")
