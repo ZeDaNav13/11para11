@@ -53,12 +53,109 @@
           </a>
         </div>
       </div>
-      <span class="site-footer-brand">11para11</span>
+      <a class="site-footer-brand" href="{{BASE_PATH}}/">11para11</a>
     </div>
     <div class="site-footer-credit">
       designed &amp; developed by
       <a href="https://paperpushers.biz" target="_blank" rel="noopener noreferrer"><strong>PaperPushers</strong></a>
     </div>
   </footer>
+  <script>
+  (() => {
+    const candidates = Array.from(
+      document.querySelectorAll(".article-header img, .article-content img")
+    );
+    if (candidates.length === 0) return;
+
+    const overlay = document.createElement("div");
+    overlay.className = "image-lightbox";
+    overlay.setAttribute("aria-hidden", "true");
+
+    const preview = document.createElement("img");
+    preview.alt = "";
+    overlay.appendChild(preview);
+    document.body.appendChild(overlay);
+
+    let isOpen = false;
+
+    const fitToViewport = () => {
+      if (!isOpen) return;
+      const nw = Number(preview.naturalWidth || 0);
+      const nh = Number(preview.naturalHeight || 0);
+      if (!nw || !nh) return;
+      const maxW = Math.max(120, window.innerWidth - 40);
+      const maxH = Math.max(120, window.innerHeight - 40);
+      const scale = Math.min(maxW / nw, maxH / nh, 1);
+      preview.style.width = `${Math.round(nw * scale)}px`;
+      preview.style.height = `${Math.round(nh * scale)}px`;
+    };
+
+    const close = () => {
+      isOpen = false;
+      overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("is-lightbox-open");
+      preview.removeAttribute("src");
+      preview.removeAttribute("style");
+      preview.alt = "";
+    };
+
+    const open = (img) => {
+      const src = img.currentSrc || img.src;
+      if (!src) return;
+      isOpen = true;
+      preview.src = src;
+      preview.alt = img.alt || "";
+      overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("is-lightbox-open");
+      if (preview.complete) fitToViewport();
+    };
+
+    preview.addEventListener("load", fitToViewport);
+    window.addEventListener("resize", fitToViewport);
+    overlay.addEventListener("click", (event) => {
+      if (event.target === overlay) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && isOpen) close();
+    });
+
+    candidates.forEach((img) => {
+      img.addEventListener("click", (event) => {
+        event.preventDefault();
+        open(img);
+      });
+    });
+  })();
+  (() => {
+    const scrollers = Array.from(
+      document.querySelectorAll('.mobile-card-scroll[data-mobile-start="end"]')
+    );
+    if (scrollers.length === 0) return;
+
+    const isMobile = () => window.matchMedia("(max-width: 719px)").matches;
+
+    const alignToEnd = () => {
+      if (!isMobile()) return;
+      scrollers.forEach((node) => {
+        node.scrollLeft = Math.max(0, node.scrollWidth - node.clientWidth);
+      });
+    };
+
+    const start = () => {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(alignToEnd);
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", start, { once: true });
+    } else {
+      start();
+    }
+    window.addEventListener("resize", alignToEnd, { passive: true });
+  })();
+  </script>
 </body>
 </html>

@@ -10,18 +10,20 @@
 <div class="home-feed home-grid-two">
   {{CARDS_TWO}}
 </div>
-<section class="category-spotlight" aria-label="Categorias em destaque">
-  <div class="category-spotlight-head">
-    <div class="category-spotlight-head-left">
-      <button class="cat-nav cat-prev" type="button" aria-label="Categoria anterior">&lt;&lt;</button>
-      <h2 class="category-spotlight-title">category</h2>
-      <button class="cat-nav cat-next" type="button" aria-label="Categoria seguinte">&gt;&gt;</button>
+<div class="mobile-card-scroll">
+  <section class="category-spotlight" aria-label="Categorias em destaque">
+    <div class="category-spotlight-head">
+      <div class="category-spotlight-head-left">
+        <button class="cat-nav cat-prev" type="button" aria-label="Categoria anterior">&lt;&lt;&lt;&lt;</button>
+        <h2 class="category-spotlight-title">category</h2>
+        <button class="cat-nav cat-next" type="button" aria-label="Categoria seguinte">&gt;&gt;&gt;&gt;</button>
+      </div>
+      <a class="cat-jump" href="{{BASE_PATH}}/" aria-label="Abrir categoria">&gt;&gt;&gt;&gt;</a>
     </div>
-    <a class="cat-jump" href="{{BASE_PATH}}/" aria-label="Abrir categoria">&gt;&gt;&gt;&gt;</a>
-  </div>
-  <div class="category-spotlight-grid"></div>
-  <script id="category-spotlight-data" type="application/json">{{CATEGORY_SPOTLIGHT_JSON}}</script>
-</section>
+    <div class="category-spotlight-grid"></div>
+    <script id="category-spotlight-data" type="application/json">{{CATEGORY_SPOTLIGHT_JSON}}</script>
+  </section>
+</div>
 <div class="home-grid-three">
   {{CARDS_THREE}}
 </div>
@@ -149,7 +151,8 @@
     titleEl.textContent = item?.name || "category";
     jumpEl.href = withBase(item?.url || "/");
     gridEl.innerHTML = "";
-    (item?.articles || []).slice(0, 3).forEach((article) => {
+    const count = window.matchMedia("(max-width: 719px)").matches ? 4 : 3;
+    (item?.articles || []).slice(0, count).forEach((article) => {
       const a = document.createElement("a");
       a.className = "category-spotlight-item";
       a.href = withBase(article.url || "/");
@@ -196,8 +199,15 @@
 
 (() => {
   const btn = document.querySelector(".load-more-btn");
+  const moreRoot = document.querySelector(".home-more");
   if (!btn) return;
   const hidden = () => Array.from(document.querySelectorAll(".home-more .extra-history.is-hidden"));
+  const updateMoreState = () => {
+    if (!moreRoot) return;
+    const hasVisible = Boolean(moreRoot.querySelector(".extra-history:not(.is-hidden)"));
+    moreRoot.classList.toggle("has-visible", hasVisible);
+  };
+  updateMoreState();
   if (hidden().length === 0) {
     btn.style.display = "none";
     return;
@@ -206,9 +216,71 @@
     hidden()
       .slice(0, 12)
       .forEach((card) => card.classList.remove("is-hidden"));
+    updateMoreState();
     if (hidden().length === 0) {
       btn.style.display = "none";
     }
   });
+})();
+
+(() => {
+  const root = document.querySelector(".home-grid-three");
+  if (!root) return;
+
+  const isMobile = () => window.matchMedia("(max-width: 719px)").matches;
+  let initialized = false;
+  let originalCards = [];
+
+  const hideScrollbar = (el) => {
+    el.style.scrollbarWidth = "none";
+    el.style.msOverflowStyle = "none";
+  };
+
+  const setupMobileRows = () => {
+    if (!isMobile()) {
+      if (!initialized) return;
+      root.classList.remove("mobile-rows");
+      root.innerHTML = "";
+      originalCards.forEach((card) => root.appendChild(card));
+      initialized = false;
+      return;
+    }
+
+    if (initialized) {
+      const middle = root.querySelector('.home-grid-three-row[data-row="1"]');
+      if (middle) {
+        middle.scrollLeft = Math.max(0, middle.scrollWidth - middle.clientWidth);
+      }
+      return;
+    }
+
+    originalCards = Array.from(root.children);
+    if (originalCards.length === 0) return;
+
+    const rows = [0, 1, 2].map((idx) => {
+      const row = document.createElement("div");
+      row.className = "home-grid-three-row";
+      row.dataset.row = String(idx);
+      hideScrollbar(row);
+      return row;
+    });
+
+    originalCards.forEach((card, idx) => {
+      rows[idx % 3].appendChild(card);
+    });
+
+    root.innerHTML = "";
+    rows.forEach((row) => root.appendChild(row));
+    root.classList.add("mobile-rows");
+    initialized = true;
+
+    const middle = rows[1];
+    requestAnimationFrame(() => {
+      middle.scrollLeft = Math.max(0, middle.scrollWidth - middle.clientWidth);
+    });
+  };
+
+  setupMobileRows();
+  window.addEventListener("resize", setupMobileRows, { passive: true });
 })();
 </script>

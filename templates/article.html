@@ -9,33 +9,37 @@
         <span class="article-byline-date">{{ARTICLE_DATE}}</span>
       </span>
       <span class="article-byline-category">
-        <span class="category-pill">{{ARTICLE_CATEGORY}}</span>
+        <a class="category-pill" href="{{CATEGORY_URL}}">{{ARTICLE_CATEGORY}}</a>
       </span>
     </p>
   </header>
   <section class="article-content">
     {{ARTICLE_BODY}}
   </section>
-  <aside class="author-card">
-    <div class="author-card-head">
-      <h3><a class="author-link" href="{{AUTHOR_URL}}">{{AUTHOR_NAME}}</a></h3>
-      <a class="author-jump" href="{{AUTHOR_URL}}" aria-label="Abrir página do autor">»»</a>
-    </div>
-    <div class="author-recent-row">
-      <div class="author-recent">
-        {{AUTHOR_RECENT}}
+  <div class="mobile-card-scroll">
+    <aside class="author-card">
+      <div class="author-card-head">
+        <h3><a class="author-link" href="{{AUTHOR_URL}}">{{AUTHOR_NAME}}</a></h3>
+        <a class="author-jump" href="{{AUTHOR_URL}}" aria-label="Abrir página do autor">&gt;&gt;&gt;&gt;</a>
       </div>
-    </div>
-  </aside>
-  <aside class="category-card">
-    <div class="author-card-head">
-      <h3><a class="author-link" href="{{CATEGORY_URL}}">{{ARTICLE_CATEGORY}}</a></h3>
-      <a class="author-jump" href="{{CATEGORY_URL}}" aria-label="Abrir página da categoria">»»</a>
-    </div>
-    <div class="author-recent-row">
-      <div class="author-recent">
-        {{CATEGORY_RECENT}}
+      <div class="author-recent-row">
+        <div class="author-recent">
+          {{AUTHOR_RECENT}}
+        </div>
       </div>
-    </div>
-  </aside>
+    </aside>
+  </div>
+  <div class="mobile-card-scroll" data-mobile-start="end">
+    <aside class="category-card">
+      <div class="author-card-head">
+        <a class="author-jump" href="{{CATEGORY_URL}}" aria-label="Abrir página da categoria">&lt;&lt;&lt;&lt;</a>
+        <h3><a class="author-link" href="{{CATEGORY_URL}}">{{ARTICLE_CATEGORY}}</a></h3>
+      </div>
+      <div class="author-recent-row">
+        <div class="author-recent">
+          {{CATEGORY_RECENT}}
+        </div>
+      </div>
+    </aside>
+  </div>
 </article>

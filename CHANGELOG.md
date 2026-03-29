@@ -1,5 +1,47 @@
 # Changelog
 
+## 2026-03-29
+
+### Added
+- Image lightbox for article pages:
+  - click cover/body image to open enlarged preview
+  - dark overlay background
+  - closes on outside click or `Esc`
+  - preview constrained to viewport without exceeding original image size
+
+### Changed
+- Final responsive polish and spacing normalization across key pages:
+  - homepage (`/`)
+  - section pages (e.g. `/o-fantasista/`)
+  - authors index (`/autores/`)
+  - author pages (e.g. `/autores/pedro-maia/`)
+  - static/archive pages (`/sobre/`, `/arquivo/`)
+- Standardized spacing system by page context:
+  - desktop: `40px` section spacing / `20px` inner spacing
+  - mobile: `30px` section spacing / `15px` inner spacing
+- Homepage mobile behavior updates:
+  - category spotlight and article bottom strips use horizontal card scrolling
+  - spotlight now supports 4 cards on mobile without wrapping to a second row
+  - 3x3 block on mobile converted to 3 horizontal rows with alternating start alignment
+- Header/footer/social polish:
+  - desktop header full-bleed nav restored
+  - mobile social icons resized to `24x24` circles with adjusted icon glyph size
+  - footer brand remains linked to homepage
+- Article page refinements:
+  - category pill in cover card now links to its category page
+  - author/category bottom card headers aligned with unified arrow style
+  - category card row can default to right-aligned start on mobile for leftward reveal
+- Archive mobile readability:
+  - archive item layout forced to two rows:
+    - top: category + title
+    - bottom: author + date
+- Build data update:
+  - category spotlight source pool expanded (from 3 to 8) to support responsive card counts
+
+### Verified
+- `./scripts/build_live.sh static /tmp/11para11-live content app` succeeds.
+- `./scripts/check_site_quality.sh /tmp/11para11-live` succeeds.
+
 ## 2026-03-28
 
 ### Added

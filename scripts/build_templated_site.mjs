@@ -487,7 +487,7 @@ const categorySpotlightData = sectionsData
   .map((section) => {
     const sectionArticles = entries
       .filter((e) => e.section_slug === section.slug)
-      .slice(0, 3)
+      .slice(0, 8)
       .map((e) => ({
         url: e.url,
         title: e.title,
