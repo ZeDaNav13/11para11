@@ -1337,7 +1337,7 @@ a:hover {
   color: var(--paper-white);
 }
 
-@media (min-width: 760px) {
+@media (min-width: 720px) {
   .grid.two {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -1359,10 +1359,92 @@ a:hover {
   }
 }
 
-@media (max-width: 759px) {
+@media (max-width: 719px) {
   :root {
     --home-card-height: 220px;
     --history-card-height: 120px;
+  }
+
+  .brand,
+  .site-footer-brand {
+    font-size: 60px;
+  }
+
+  .page-title,
+  .author-page .page-title,
+  .authors-page .page-title,
+  .carousel-title,
+  .category-spotlight-title,
+  .article-title {
+    font-size: 30px;
+  }
+
+  .home-grid-two .card-title,
+  .category-spotlight-item-title {
+    font-size: 24px;
+  }
+
+  .archive-year-label,
+  .category-card h3,
+  .author-jump,
+  .author-tile h3 {
+    font-size: 22px;
+  }
+
+  .home-grid-three .card-title,
+  .history-title,
+  .article-content li {
+    font-size: 20px;
+  }
+
+  .article-content h4 {
+    font-size: 20px !important;
+  }
+
+  .archive-month-label,
+  .author-recent-title {
+    font-size: 18px;
+  }
+
+  .archive-chevron,
+  .article-byline {
+    font-size: 16px;
+  }
+
+  .nav a,
+  .author-page .page-subtitle,
+  .author-filter,
+  .site-footer-nav a,
+  .archive-item-title,
+  .author-sub {
+    font-size: 14px;
+  }
+
+  .load-more-btn {
+    font-size: 12px;
+  }
+
+  .carousel-desc,
+  .site-footer-credit,
+  .author-latest {
+    font-size: 11px;
+  }
+
+  .carousel-submeta,
+  .home-grid-two .card-submeta,
+  .category-spotlight-item-meta,
+  .home-grid-three .card-submeta,
+  .history-submeta,
+  .archive-item-meta {
+    font-size: 10px;
+  }
+
+  .author-pill,
+  .category-pill,
+  .archive-item-link .category-pill,
+  .author-recent-meta,
+  .author-section-pill {
+    font-size: 9px;
   }
 
   .home-more {
